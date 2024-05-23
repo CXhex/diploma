@@ -102,7 +102,7 @@ class Controller:
         
         main_field = self.view.frames['main'].options.get_width_main_field()
         if main_field is None:
-            self.view.frames['main'].show_error("Введіть ширину основного поля!")
+            self.view.frames['main'].show_error("Введіть ширину основної площадки земляного полотна!")
             return None
         
         self.model.settings.set_width_main_field(main_field)
