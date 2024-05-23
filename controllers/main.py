@@ -90,7 +90,7 @@ class Controller:
                 table_data = table_data[:60] + "...'"
             self.view.frames['main'].show_error(f"Перевірте введені дані!\n{table_data}")
             return None
-        self.model.table_data.set_table_data()
+        self.model.table_data.set_table_data(table_data)
         self.model.table_data.autofill_table_data()
         
         indicators_of_subgrade_slope = self.view.frames['main'].cross_sections.get_ctgs()
