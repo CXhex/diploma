@@ -7,46 +7,55 @@ class Controller:
         self.view = view
         self.model = model
         
+        self.update()
+        
+        self.view.frames['main'].options.menu_number_of_tracks.configure(command=self.set_number_of_tracks)
+        self.view.frames['main'].options.optionmenu.configure(command=self.change_type_of_works)
+        self.view.frames['main'].options.entry_number_of_elements.bind("<Return>", command=self.set_number_of_elements)
+        self.view.frames['main'].options.set_number_of_elements_button.configure(command=self.set_number_of_elements)
+        self.view.frames['main'].options.checkbox_obliquity.configure(command=self.set_obliquity)
+        self.view.frames['main'].table.buttons_frame.button_calculate.configure(command=self.calculate)
+        self.view.frames['main'].table.buttons_frame.button_copy.configure(command=self.copy)
+        self.view.frames['main'].cross_sections.checkbox_cross_sections.configure(command=self.set_check_var_cross_sections)
+        self.view.frames['main'].button_reset.configure(command=self.reset)
+        
+    #скинути найлаштування
+    def reset(self):
+        if self.view.frames['main'].ask_question("Ви впевнені, що хочете скинути налаштування?"):
+            self.model.settings.set_default_settings()
+            self.update()
+        
+    def update(self):
         self.view.frames['main'].options.set_entry_number_of_elements_text_var(self.model.settings.get_number_of_elements())
         self.view.frames['main'].options.set_optionmenu_list(self.model.settings.get_list_of_work_types(), self.model.settings.get_type_of_works())
+        self.show_hide_number_of_tracks()
         self.view.frames['main'].options.set_check_var_obliquity(self.model.settings.get_obliquity())
+        self.view.frames['main'].options.set_width_main_field(self.model.settings.get_width_main_field())
         
         self.view.frames['main'].cross_sections.set_check_var_cross_sections(self.model.settings.get_cross_sections())
         self.view.frames['main'].cross_sections.set_ctgs(self.model.settings.get_indicators_of_subgrade_slope())
-        
+ 
+        self.model.table_data.headers_update(self.model.settings.get_obliquity())
+        self.model.table_data.set_table_size(self.model.settings.get_number_of_elements())
+        self.model.table_data.set_table_data()
+
         self.view.frames['main'].table.set_table_headers(self.model.table_data.get_table_headers())
         self.view.frames['main'].table.set_table_data(self.model.table_data.get_table_data())
+        self.view.frames['main'].table.frame_info.default_table_info()
         self.view.frames['main'].table.frame_info.info_display()
         
+        
+    def show_hide_number_of_tracks(self):
         if self.model.settings.get_type_of_works() == "залізниць":
             self.view.frames['main'].options.display_number_of_tracks()
             self.view.frames['main'].options.set_number_of_tracks(self.model.settings.get_number_of_tracks(), self.model.settings.get_track())
         elif self.model.settings.get_type_of_works() == "автомобільних доріг":
             self.view.frames['main'].options.hide_number_of_tracks()
-        
-        self.view.frames['main'].options.menu_number_of_tracks.configure(command=self.set_number_of_tracks)
-        self.view.frames['main'].options.optionmenu.configure(command=self.change_type_of_works)
-        self.view.frames['main'].options.set_width_main_field(self.model.settings.get_width_main_field())
-        
-        self.view.frames['main'].options.entry_number_of_elements.bind("<Return>", command=self.set_number_of_elements)
-        self.view.frames['main'].options.set_number_of_elements_button.configure(command=self.set_number_of_elements)
-        self.view.frames['main'].options.checkbox_obliquity.configure(command=self.set_obliquity)
-        
-        self.view.frames['main'].table.buttons_frame.button_calculate.configure(command=self.calculate)
-        self.view.frames['main'].table.buttons_frame.button_copy.configure(command=self.copy)
-        
-        self.view.frames['main'].cross_sections.checkbox_cross_sections.configure(command=self.set_check_var_cross_sections)
-        
         
     def change_type_of_works(self, event=None):
         self.view.frames['main'].focus()
         self.model.settings.set_type_of_works(self.view.frames['main'].options.get_optionmenu_value())
-        
-        if self.model.settings.get_type_of_works() == "залізниць":
-            self.view.frames['main'].options.display_number_of_tracks()
-            self.view.frames['main'].options.set_number_of_tracks(self.model.settings.get_number_of_tracks(), self.model.settings.get_track())
-        elif self.model.settings.get_type_of_works() == "автомобільних доріг":
-            self.view.frames['main'].options.hide_number_of_tracks()
+        self.show_hide_number_of_tracks()
     
     def set_number_of_elements(self, event=None):
         if len(self.view.frames['main'].options.get_entry_number_of_elements()):
@@ -62,16 +71,19 @@ class Controller:
         self.view.frames['main'].focus()
         check = self.view.frames['main'].cross_sections.get_check_var_cross_sections()
         if check:
+            self.model.settings.set_cross_sections(check)
             self.model.settings.set_indicators_of_subgrade_slope()
             self.view.frames['main'].cross_sections.set_ctgs(self.model.settings.get_indicators_of_subgrade_slope())
             self.view.frames['main'].cross_sections.disable_editing()
         else:
+            self.model.settings.set_cross_sections(check)
             self.view.frames['main'].cross_sections.enable_editing()
             
     def set_obliquity(self):
         self.view.frames['main'].focus()
         check = self.view.frames['main'].options.get_check_var_obliquity()
-        self.model.table_data.headers_update(check)
+        self.model.settings.set_obliquity(check)
+        self.model.table_data.headers_update(self.model.settings.get_obliquity())
         self.view.frames['main'].table.set_table_headers(self.model.table_data.get_table_headers())
         self.view.frames['main'].table.set_table_data(self.model.table_data.get_table_data())
         
@@ -118,3 +130,4 @@ class Controller:
 
     def start(self) -> None:
         self.view.start_mainloop()
+        self.model.settings.save_settings()

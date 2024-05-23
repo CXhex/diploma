@@ -19,7 +19,7 @@ class Options(CTkFrame):
         #Враховувати косогорність місцевості
         self.label_obliquity = CTkLabel(self, text="Враховувати косогорність місцевості", fg_color="transparent")
         self.label_obliquity.grid(row=2, column=0, padx=10, pady=(0,10), sticky="w")
-        self.checkbox_obliquity = CTkCheckBox(self, text="", onvalue=1, offvalue=0, border_width=2)
+        self.checkbox_obliquity = CTkCheckBox(self, text="", onvalue="1", offvalue="0", border_width=2)
         self.checkbox_obliquity.grid(row=2, column=1, sticky="w", pady=(0, 10))
         
         #Кількість елементів

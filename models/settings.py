@@ -1,6 +1,12 @@
+import os
+import json
+
 class Settings:
     def __init__(self) -> None:
-        self.number_of_elements = 15
+        self.load_settings()
+        
+    def set_default_settings(self):
+        self.number_of_elements = 10
         self.list_of_work_types = ["залізниць", "автомобільних доріг"]
         self.type_of_works = self.list_of_work_types[0]
         self.number_of_tracks = ["одна", "дві"]
@@ -8,7 +14,22 @@ class Settings:
         self.cross_sections = True
         self.obliquity = False
         self.indicators_of_subgrade_slope = [1.5, 1.75, 2]
-        self.width_main_field = 7
+        self.width_main_field = 7.0
+        
+    def load_settings(self):
+        temp_dir = os.path.join(os.getenv('USERPROFILE'), 'AppData', 'Local', 'Temp')
+        file_path = os.path.join(temp_dir, 'volume_railways_and_highways_settings.json')
+        if os.path.exists(file_path):
+            with open(file_path, 'r') as f:
+                self.__dict__.update(json.load(f))
+        else:
+            self.set_default_settings()
+        
+    def save_settings(self):
+        temp_dir = os.path.join(os.getenv('USERPROFILE'), 'AppData', 'Local', 'Temp')
+        file_path = os.path.join(temp_dir, 'volume_railways_and_highways_settings.json')
+        with open(file_path, 'w') as f:
+            json.dump(self.__dict__, f)
 
     def set_width_main_field(self, width_main_field: int):
         self.width_main_field = width_main_field

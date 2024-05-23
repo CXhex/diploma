@@ -5,6 +5,10 @@ class TableInformation(CTkFrame):
     def __init__(self, master, **kwargs):
         super().__init__(master, **kwargs)
 
+        self.default_table_info()
+
+    #reset table info
+    def default_table_info(self):
         self.table_info = ["Об'єм насипу Vн = __ тис.м.куб.", "Об'єм виїмки Vв = __ тис.м.куб.",
                            "Профільна кубатура V = __ тис.м.куб.", "Покілометровий об'єм - __ тис.м.куб./км.",
                            "Загальна довжина L = __ м."]

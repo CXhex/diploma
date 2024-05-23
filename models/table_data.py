@@ -58,7 +58,7 @@ class TableData:
                 d.insert(4, 0.0)
 
             self.set_table_data(new_data)
-        else:
+        elif "Косогірність" in self.get_table_headers():
             self.headers.remove("Косогірність")
             new_data = self.get_table_data()
             for d in new_data:
