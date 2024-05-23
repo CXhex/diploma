@@ -44,6 +44,9 @@ class Table(CTkFrame):
         
     def get_table_data(self):
         data = self.sheet.get_sheet_data()
-        data = [[float(c) for c in r]for r in data]
+        try:
+            data = [[float(c) for c in r]for r in data]
+        except ValueError as error:
+            return error
         return data
         
