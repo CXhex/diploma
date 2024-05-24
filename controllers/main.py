@@ -19,9 +19,9 @@ class Controller:
         self.view.frames['main'].cross_sections.checkbox_cross_sections.configure(command=self.set_check_var_cross_sections)
         self.view.frames['main'].button_reset.configure(command=self.reset)
         
-    #скинути найлаштування
+    #скинути налаштування
     def reset(self):
-        if self.view.frames['main'].ask_question("Ви впевнені, що хочете скинути налаштування?"):
+        if self.view.ask_question("Ви впевнені, що хочете скинути налаштування?"):
             self.model.settings.set_default_settings()
             self.update()
         
@@ -65,7 +65,7 @@ class Controller:
             self.view.frames['main'].table.set_table_data(self.model.table_data.get_table_data())
             self.view.frames['main'].focus()
         else:
-            self.view.frames['main'].show_error("Введіть кількість елементів!")
+            self.view.show_error("Введіть кількість елементів!")
             
     def set_check_var_cross_sections(self):
         self.view.frames['main'].focus()
@@ -100,21 +100,21 @@ class Controller:
             table_data =str(table_data)
             if len(table_data) > 60:
                 table_data = table_data[:60] + "...'"
-            self.view.frames['main'].show_error(f"Перевірте введені дані!\n{table_data}")
+            self.view.show_error(f"Перевірте введені дані!\n{table_data}")
             return None
         self.model.table_data.set_table_data(table_data)
         self.model.table_data.autofill_table_data()
         
         indicators_of_subgrade_slope = self.view.frames['main'].cross_sections.get_ctgs()
         if indicators_of_subgrade_slope is None:
-            self.view.frames['main'].show_error("Введіть показники укосів!")
+            self.view.show_error("Введіть показники укосів!")
             return None
         
         self.model.settings.set_indicators_of_subgrade_slope(indicators_of_subgrade_slope)
         
         main_field = self.view.frames['main'].options.get_width_main_field()
         if main_field is None:
-            self.view.frames['main'].show_error("Введіть ширину основної площадки земляного полотна!")
+            self.view.show_error("Введіть ширину основної площадки земляного полотна!")
             return None
         
         self.model.settings.set_width_main_field(main_field)
