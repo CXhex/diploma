@@ -18,8 +18,8 @@ class Table(CTkFrame):
                            width=990,
                            show_x_scrollbar=False,
                            empty_vertical=0,
-                           empty_horizontal=0,
-                           auto_resize_columns=True)
+                           empty_horizontal=0
+                           )
 
         self.sheet.enable_bindings()
         self.sheet.grid(row=0, column=0, columnspan=4,
@@ -34,6 +34,7 @@ class Table(CTkFrame):
 
     def set_table_headers(self, headers: list):
         self.sheet.set_header_data(headers)
+        self.sheet.set_options(default_column_width=950 / len(headers))
         
     def get_table_headers(self):
         return self.sheet.headers()
