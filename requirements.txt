@@ -1,0 +1,4 @@
+customtkinter==5.2.2
+CTkMessagebox==2.5
+tksheet==7.2.1
+pywin32>=306
