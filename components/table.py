@@ -25,12 +25,13 @@ class Table(CTkFrame):
         self.sheet.grid(row=0, column=0, columnspan=4,
                         sticky="we", padx=10, pady=10)
 
-        self.frame_info = TableInformation(master=self, fg_color="transparent")
+        self.frame_info = TableInformation(master=self, width=800, height=60, fg_color="transparent")
         self.frame_info.grid(row=1, column=0, columnspan=3,
                              sticky="w", padx=(10, 0), pady=(0, 0))
+        self.frame_info.grid_propagate(0)
 
         self.buttons_frame = Buttons(master=self, fg_color="transparent")
-        self.buttons_frame.grid(row=1, column=3, sticky="e", padx=(0, 10))
+        self.buttons_frame.grid(row=1, column=3, sticky="ne", padx=(0, 10))
 
     def set_table_headers(self, headers: list):
         self.sheet.set_header_data(headers)
@@ -50,4 +51,4 @@ class Table(CTkFrame):
         except ValueError as error:
             return error
         return data
-        
+    

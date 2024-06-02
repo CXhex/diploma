@@ -18,23 +18,23 @@ class Options(CTkFrame):
 
         #Враховувати косогорність місцевості
         self.label_obliquity = CTkLabel(self, text="Враховувати косогорність місцевості", fg_color="transparent")
-        self.label_obliquity.grid(row=2, column=0, padx=10, pady=(0,10), sticky="w")
+        self.label_obliquity.grid(row=3, column=0, padx=10, pady=(0,10), sticky="w")
         self.checkbox_obliquity = CTkCheckBox(self, text="", onvalue="1", offvalue="0", border_width=2)
-        self.checkbox_obliquity.grid(row=2, column=1, sticky="w", pady=(0, 10))
+        self.checkbox_obliquity.grid(row=3, column=1, sticky="w", pady=(0, 10))
         
         #Кількість елементів
         self.label_obliquity = CTkLabel(self, text="Кількість елементів", fg_color="transparent")
-        self.label_obliquity.grid(row=3, column=0, padx=10, pady=(0, 10), sticky="w")
+        self.label_obliquity.grid(row=2, column=0, padx=10, pady=(0, 10), sticky="w")
         self.entry_number_of_elements_text_var = StringVar()
         self.entry_number_of_elements = CTkEntry(self, width=50, justify="center", fg_color="transparent", border_color='gray', textvariable=self.entry_number_of_elements_text_var)
 
         validate_number = (self.register(self.validate_number_of_elements),'%P')
         self.entry_number_of_elements.configure(validate='key', validatecommand=validate_number)
         
-        self.entry_number_of_elements.grid(row=3, column=1, sticky="w", pady=(0, 10))
+        self.entry_number_of_elements.grid(row=2, column=1, sticky="w", pady=(0, 10))
         
         self.set_number_of_elements_button = CTkButton(self, text="встановити", width=110)
-        self.set_number_of_elements_button.grid(row=3, column=1, sticky="e", padx=(0, 10), pady=(0, 10))
+        self.set_number_of_elements_button.grid(row=2, column=1, sticky="e", padx=(0, 10), pady=(0, 10))
 
         #ширина основної площадки земляного полотна
         self.lable_width_main_field = CTkLabel(self, text="Ширина основної площадки земляного полотна", fg_color="transparent")

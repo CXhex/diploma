@@ -21,9 +21,8 @@ class Calculate():
             for row in self.data:
                 c = CalculateTrain(row, self.b, self.ctgs, self.number_of_tracks)
                 res = c.calculate()
-                del row[-1]
-                del row[-1]
-                row.extend(res)
+                row[-2] = res[0]
+                row[-1] = res[1]
         elif self.type_of_works == "автомобільних доріг":
             pass
 
@@ -44,10 +43,13 @@ class Calculate():
             per_kilometer_volume = profile_volume * 1000 / total_length
             
         table_info = {
-                      "embankment_volume" : round(embankment_volume, 2),      # Об'єм насипу V
-                      "excavation_volume" : round(excavation_volume, 2),      # Об'єм виїмки V
-                      "profile_volume" : round(profile_volume, 2),            # Профільна кубатура V
-                      "total_length" : round(total_length, 2),                # Загальна довжина L
-                      "per_kilometer_volume" : round(per_kilometer_volume, 2) # Покілометровий об'єм
-                      }
+            "embankment_volume" : format_number(round(embankment_volume, 2)),  # Об'єм насипу V
+            "excavation_volume" : format_number(round(excavation_volume, 2)),  # Об'єм виїмки V
+            "profile_volume"    : format_number(round(profile_volume, 2)),     # Профільна кубатура V
+            "total_length"      : format_number(round(total_length, 2)),       # Загальна довжина L
+            "per_kilometer_volume" : format_number(round(per_kilometer_volume, 2)) # Покілометровий об'єм
+        }   
         return table_info
+
+def format_number(number):
+    return str(number) if len(str(number)) <= 10 else "{:.2g}".format(number)
