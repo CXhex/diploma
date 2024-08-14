@@ -34,23 +34,23 @@ This part will walk you through setting up a development environment so you can 
 ### Setting Up the Project
 
 1. Clone the repository:
-```bash
-git clone https://github.com/CXhex/diploma.git
-cd diploma
-```
+    ```bash
+    git clone https://github.com/CXhex/diploma.git
+    cd diploma
+    ```
 2. **Create and Activate a Virtual Environment:**
-```bash
-python -m venv venv 
-.\venv\Scripts\activate
-```
+    ```bash
+    python -m venv venv 
+    .\venv\Scripts\activate
+    ```
 3. Install Dependencies:
 
-Ensure you have a `requirements.txt` file in the root of your project directory containing all necessary dependencies. 
-
-Install the dependencies using pip:
-```bash
-pip install -r requirements.txt
-```
+    Ensure you have a `requirements.txt` file in the root of your project directory containing all necessary dependencies. 
+    
+    Install the dependencies using pip:
+    ```bash
+    pip install -r requirements.txt
+    ```
 
 ### Building the Executable
 
