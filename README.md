@@ -1,6 +1,7 @@
 # Earthworks Volume Calculator
 
 The program automates the calculation process, ensuring high accuracy and efficiency. The application is designed using the MVC (Model-View-Controller) architecture, which separates the logic, user interface, and control, making the program flexible, maintainable, and extensible.
+
 ![Earthworks Volume Calculator](/assets/screenshot.png)
 
 ## Features
@@ -15,7 +16,9 @@ The program automates the calculation process, ensuring high accuracy and effici
 ## Download
 
 Download the portable version from the [latest release](https://github.com/CXhex/diploma/releases/latest).
+
 Run the executable you downloaded to run Earthworks Volume Calculator.
+
 Requirements: Windows 10 and newer.
 
 ## Development environment
@@ -41,7 +44,10 @@ python -m venv venv
 .\venv\Scripts\activate
 ```
 3. Install Dependencies:
-Ensure you have a `requirements.txt` file in the root of your project directory containing all necessary dependencies. Install the dependencies using pip:
+
+Ensure you have a `requirements.txt` file in the root of your project directory containing all necessary dependencies. 
+
+Install the dependencies using pip:
 ```bash
 pip install -r requirements.txt
 ```
